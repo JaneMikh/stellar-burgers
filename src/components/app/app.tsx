@@ -26,8 +26,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const res = dispatch(getIngredients());
-    console.log(res);
+    dispatch(getIngredients());
+    /*Добавить данные о пользователе */
   }, [dispatch]);
 
   return (
