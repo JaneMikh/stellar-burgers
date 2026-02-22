@@ -7,20 +7,23 @@ import {
 import { ingredientReducer } from './slices/ingredients-slice';
 import { constructorReducer } from './slices/constructor-slice';
 
+//Корневой редюсер
 const rootReducer = combineReducers({
   ingredients: ingredientReducer,
   constructorBurger: constructorReducer
 });
 
+//Создание хранинлища
 const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production'
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-
+//Тизация состояния хранища и диспатча
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 
+//Типизация хуков
 export const useDispatch: () => AppDispatch = () => dispatchHook();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 

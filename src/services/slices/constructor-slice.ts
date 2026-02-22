@@ -1,23 +1,8 @@
-import { orderBurgerApi } from '@api';
-import {
-  PayloadAction,
-  createAsyncThunk,
-  createSlice,
-  nanoid
-} from '@reduxjs/toolkit';
-import { TConstructorIngredient, TOrder, TIngredient } from '@utils-types';
+import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { RootState } from '../store';
-
-type TConstructorState = {
-  constructorItems: {
-    bun: TConstructorIngredient | null;
-    ingredients: TConstructorIngredient[];
-  };
-  orderRequest: boolean;
-  orderModalData: TOrder | null;
-  isLoading: boolean;
-  error: string | null;
-};
+import { TConstructorState } from '@utils-types';
+import { getOrder } from '../actions/constructorBurger';
 
 export const initialState: TConstructorState = {
   constructorItems: {
@@ -30,11 +15,14 @@ export const initialState: TConstructorState = {
   error: null
 };
 
-export const getOrder = createAsyncThunk('user/getOrder', orderBurgerApi);
-
 const constructorSlice = createSlice({
-  name: 'constructorOfBurger',
+  name: 'constructorBurger',
   initialState,
+  selectors: {
+    constructorItemsSelector: (state) => state.constructorItems,
+    constructorModalDataSelector: (state) => state.orderModalData,
+    constructorRequestSelector: (state) => state.orderRequest
+  },
   reducers: {
     addItem: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
@@ -43,11 +31,10 @@ const constructorSlice = createSlice({
         } else {
           state.constructorItems.ingredients.push(action.payload);
         }
-        
       },
       prepare: (item: TIngredient) => {
         const id = nanoid();
-        console.log(id)
+        console.log(id);
         return { payload: { id, ...item } };
       }
     },
@@ -63,10 +50,31 @@ const constructorSlice = createSlice({
     },
     resetOrderModal: (state) => {
       state.orderModalData = null;
+    },
+    moveItemDown: (state, action: PayloadAction<number>) => {
+      const itemIndex = action.payload;
+      if (itemIndex < state.constructorItems.ingredients.length - 1) {
+        [
+          state.constructorItems.ingredients[itemIndex],
+          state.constructorItems.ingredients[itemIndex + 1]
+        ] = [
+          state.constructorItems.ingredients[itemIndex + 1],
+          state.constructorItems.ingredients[itemIndex]
+        ];
+      }
+    },
+    moveItemUp: (state, action: PayloadAction<number>) => {
+      const itemIndex = action.payload;
+      if (itemIndex > 0) {
+        [
+          state.constructorItems.ingredients[itemIndex],
+          state.constructorItems.ingredients[itemIndex - 1]
+        ] = [
+          state.constructorItems.ingredients[itemIndex - 1],
+          state.constructorItems.ingredients[itemIndex]
+        ];
+      }
     }
-    /*setOrderRequest: (state, action) => {
-      state.orderRequest = action.payload;
-    }*/
   },
   extraReducers: (builder) => {
     builder
@@ -89,25 +97,23 @@ const constructorSlice = createSlice({
           bun: null,
           ingredients: []
         };
-        console.log(action.payload);
       });
   }
 });
-
-export const constructorItemsSelector = (state: RootState) =>
-  state.constructorBurger.constructorItems;
-
-export const constructorModalDataSelector = (state: RootState) =>
-  state.constructorBurger.orderModalData;
-
-export const constructorRequestSelector = (state: RootState) =>
-  state.constructorBurger.orderRequest;
 
 export const {
   addItem,
   removeItem,
   resetConstructor,
-  resetOrderModal
-  //setOrderRequest
+  resetOrderModal,
+  moveItemDown,
+  moveItemUp
 } = constructorSlice.actions;
+
+export const {
+  constructorItemsSelector,
+  constructorModalDataSelector,
+  constructorRequestSelector
+} = constructorSlice.selectors;
+
 export const constructorReducer = constructorSlice.reducer;

@@ -1,3 +1,4 @@
+// Тип для ингредиента в каталоге
 export type TIngredient = {
   _id: string;
   name: string;
@@ -12,10 +13,12 @@ export type TIngredient = {
   image_mobile: string;
 };
 
+// Тип для ингредиента в конструкторе бургера
 export type TConstructorIngredient = TIngredient & {
   id: string;
 };
 
+// Тип для заказа
 export type TOrder = {
   _id: string;
   status: string;
@@ -26,15 +29,43 @@ export type TOrder = {
   ingredients: string[];
 };
 
+// Тип для списка заказов
 export type TOrdersData = {
   orders: TOrder[];
   total: number;
   totalToday: number;
 };
 
+// Тип для авторизованного пользователя
 export type TUser = {
   email: string;
   name: string;
 };
 
+// Тип для управлением работы "Tabs"
 export type TTabMode = 'bun' | 'sauce' | 'main';
+
+// Тип для состояния ингредиента
+export type TIngredientState = {
+  ingredients: TIngredient[];
+  isIngredientsLoading: boolean;
+  error: string | null;
+};
+
+// Тип для состояния конструктора
+export type TConstructorState = {
+  constructorItems: {
+    bun: TConstructorIngredient | null;
+    ingredients: TConstructorIngredient[];
+  };
+  orderRequest: boolean;
+  orderModalData: TOrder | null;
+  isLoading: boolean;
+  error: string | null;
+};
+
+// Тип для корневого состояния (дополнить!!!)
+export type RootState = {
+  ingredients: TIngredientState;
+  constructorBurger: TConstructorState;
+};
