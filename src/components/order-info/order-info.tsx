@@ -1,11 +1,17 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useDispatch } from '../../services/store';
+import { getOrderState } from '../../services/slices/order-slice';
+import { useSelector } from '../../services/store';
+import { useParams } from 'react-router-dom';
+import { getOrderNumber } from '../../services/actions/orderActions';
+import { getItemsSelector } from '../../services/slices/ingredients-slice';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
+  /* const orderData = {
     createdAt: '',
     ingredients: [],
     _id: '',
@@ -15,19 +21,28 @@ export const OrderInfo: FC = () => {
     number: 0
   };
 
-  const ingredients: TIngredient[] = [];
+  const ingredients: TIngredient[] = [];*/
+  const dispatch = useDispatch();
+  const { request, getOrderResponse } = useSelector(getOrderState);
+  const number = Number(useParams().number);
+
+  useEffect(() => {
+    dispatch(getOrderNumber(number));
+  }, []);
+
+  const ingredients: TIngredient[] = useSelector(getItemsSelector);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
-    if (!orderData || !ingredients.length) return null;
+    if (!getOrderResponse || !ingredients.length) return null;
 
-    const date = new Date(orderData.createdAt);
+    const date = new Date(getOrderResponse.createdAt);
 
     type TIngredientsWithCount = {
       [key: string]: TIngredient & { count: number };
     };
 
-    const ingredientsInfo = orderData.ingredients.reduce(
+    const ingredientsInfo = getOrderResponse.ingredients.reduce(
       (acc: TIngredientsWithCount, item) => {
         if (!acc[item]) {
           const ingredient = ingredients.find((ing) => ing._id === item);
@@ -52,14 +67,14 @@ export const OrderInfo: FC = () => {
     );
 
     return {
-      ...orderData,
+      ...getOrderResponse,
       ingredientsInfo,
       date,
       total
     };
-  }, [orderData, ingredients]);
+  }, [getOrderResponse, ingredients]);
 
-  if (!orderInfo) {
+  if (!orderInfo || request) {
     return <Preloader />;
   }
 

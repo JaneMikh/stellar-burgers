@@ -6,11 +6,13 @@ import {
 } from 'react-redux';
 import { ingredientReducer } from './slices/ingredients-slice';
 import { constructorReducer } from './slices/constructor-slice';
+import { orderReducer } from './slices/order-slice';
 
 //Корневой редюсер
 const rootReducer = combineReducers({
   ingredients: ingredientReducer,
-  constructorBurger: constructorReducer
+  constructorBurger: constructorReducer,
+  order: orderReducer
 });
 
 //Создание хранинлища

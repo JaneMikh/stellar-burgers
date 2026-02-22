@@ -5,8 +5,11 @@ import { useSelector, useDispatch } from '../../services/store';
 import {
   constructorItemsSelector,
   constructorModalDataSelector,
-  constructorRequestSelector
+  constructorRequestSelector,
+  resetOrderModal,
+  setRequest
 } from '../../services/slices/constructor-slice';
+import { getOrder } from '../../services/actions/constructorBurgerActions';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -19,15 +22,35 @@ export const BurgerConstructor: FC = () => {
 
   const orderRequest = false;
   const orderModalData = null;*/
+
   const dispatch = useDispatch();
   const constructorItems = useSelector(constructorItemsSelector);
   const orderRequest = useSelector(constructorRequestSelector);
   const orderModalData = useSelector(constructorModalDataSelector);
 
+  // Создаем массив из id нгредиентов
+  let arr: string[] = [];
+  const ingredientsList: string[] | void = constructorItems.ingredients.map(
+    (item) => item._id
+  );
+
+  // Добавляем id булки в массив с ингредиентами
+  if (constructorItems.bun) {
+    const bun = constructorItems.bun._id;
+    arr = [bun, ...ingredientsList, bun];
+  }
+
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
+    if (constructorItems.bun) {
+      dispatch(setRequest(true));
+      dispatch(getOrder(arr));
+    } else if (!constructorItems.bun) return;
   };
-  const closeOrderModal = () => {};
+
+  const closeOrderModal = () => {
+    dispatch(setRequest(false));
+    dispatch(resetOrderModal());
+  };
 
   const price = useMemo(
     () =>

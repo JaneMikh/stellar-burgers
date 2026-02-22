@@ -64,6 +64,15 @@ export type TConstructorState = {
   error: string | null;
 };
 
+// Тип для состояния заказа
+export type TOrderState = {
+  orders: TOrder[];
+  request: boolean;
+  responseOrder: null;
+  getOrderResponse: TOrder | null;
+  error: string | null;
+};
+
 // Тип для корневого состояния (дополнить!!!)
 export type RootState = {
   ingredients: TIngredientState;

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { TIngredientState } from '@utils-types';
-import { getIngredients } from '../actions/ingredients';
+import { getIngredients } from '../actions/ingredientsActions';
 
 const initialState: TIngredientState = {
   ingredients: [],
