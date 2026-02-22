@@ -7,12 +7,14 @@ import {
 import { ingredientReducer } from './slices/ingredients-slice';
 import { constructorReducer } from './slices/constructor-slice';
 import { orderReducer } from './slices/order-slice';
+import { feedReducer } from './slices/feed-slice';
 
 //Корневой редюсер
 const rootReducer = combineReducers({
   ingredients: ingredientReducer,
   constructorBurger: constructorReducer,
-  order: orderReducer
+  order: orderReducer,
+  feed: feedReducer
 });
 
 //Создание хранинлища

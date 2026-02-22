@@ -78,3 +78,12 @@ export type RootState = {
   ingredients: TIngredientState;
   constructorBurger: TConstructorState;
 };
+
+// Тип для состояния ленты заказов
+export type TFeedState = {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+  isLoading: boolean;
+  error: string | null;
+};
