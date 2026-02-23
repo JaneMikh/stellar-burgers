@@ -1,21 +1,22 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector } from '../../services/store';
+import { useSelector, useDispatch } from '../../services/store';
+import { getUserState, getUserinfo } from '../../services/slices/user-slice';
+import { Preloader } from '@ui';
+import { TUser } from '@utils-types';
 import {
   getUserData,
   updateUserData
 } from '../../services/actions/userActions';
-import { getUserState } from '../../services/slices/user-slice';
-import { useDispatch } from '../../services/store';
-import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
   const [isFormChanged, setIsFormChanged] = useState(false);
 
   const dispatch = useDispatch();
-  const userData = useSelector(getUserState).user;
-  const isLoading = useSelector(getUserState).request;
+
+  const userData: TUser | null = useSelector(getUserinfo);
+  const { request } = useSelector(getUserState);
 
   const user = {
     name: userData?.name || '',
@@ -38,11 +39,6 @@ export const Profile: FC = () => {
     }
   }, [userData]);
 
-  /*const isFormChanged =
-    formValue.name !== user?.name ||
-    formValue.email !== user?.email ||
-    !!formValue.password;
-*/
   useEffect(() => {
     setIsFormChanged(
       formValue.name !== user.name ||
@@ -51,7 +47,7 @@ export const Profile: FC = () => {
     );
   }, [formValue, user]);
 
-  if (isLoading) {
+  if (request) {
     return <Preloader />;
   }
 

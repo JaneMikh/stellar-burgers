@@ -11,7 +11,7 @@ import { getItemsState } from '../../services/slices/ingredients-slice';
 
 export const IngredientDetails: FC = () => {
   /** TODO: взять переменную из стора */
-  const ingredientData = useSelector(getItemsSelector);
+  const ingredientData: TIngredient[] = useSelector(getItemsSelector);
   const { error } = useSelector(getItemsState);
   const { id } = useParams<{ id: string }>();
   const [ingredient, setIngredient] = useState<TIngredient | null>(null);

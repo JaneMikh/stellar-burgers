@@ -14,6 +14,7 @@ export const Register: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error } = useSelector(getUserState);
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 

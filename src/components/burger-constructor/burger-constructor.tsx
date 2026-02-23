@@ -1,7 +1,10 @@
 import { FC, useMemo } from 'react';
-import { TConstructorIngredient } from '@utils-types';
+import { TConstructorIngredient, TOrder } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
+import { getOrder } from '../../services/actions/constructorBurgerActions';
+import { getUserState } from '../../services/slices/user-slice';
+import { useNavigate } from 'react-router-dom';
 import {
   constructorItemsSelector,
   constructorModalDataSelector,
@@ -9,28 +12,19 @@ import {
   resetOrderModal,
   setRequest
 } from '../../services/slices/constructor-slice';
-import { getOrder } from '../../services/actions/constructorBurgerActions';
-import { getUserState } from '../../services/slices/user-slice';
-import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  /*const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
-
-  const orderRequest = false;
-  const orderModalData = null;*/
-
-  const dispatch = useDispatch();
-  const constructorItems = useSelector(constructorItemsSelector);
-  const orderRequest = useSelector(constructorRequestSelector);
-  const orderModalData = useSelector(constructorModalDataSelector);
-  const isAuthenticated = useSelector(getUserState).isAuthenticated;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const constructorItems = useSelector(constructorItemsSelector);
+  const orderRequest: boolean = useSelector(constructorRequestSelector);
+  const orderModalData: TOrder | null = useSelector(
+    constructorModalDataSelector
+  );
+  const { isAuthenticated } = useSelector(getUserState);
+
   // Создаем массив из id нгредиентов
   let arr: string[] = [];
   const ingredientsList: string[] | void = constructorItems.ingredients.map(

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import { TUserState } from '@utils-types';
+import { PayloadAction } from '@reduxjs/toolkit';
 import {
   getUserData,
   logoutUser,
@@ -9,7 +10,6 @@ import {
   registerUser,
   loginUser
 } from '../actions/userActions';
-import { PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: TUserState = {
   user: null,
@@ -26,16 +26,10 @@ const initialState: TUserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    resetError: (state) => {
-      state.error = null;
-    },
-    loginOut: (state) => {
-      state.user = null;
-    }
-  },
+  reducers: {},
   selectors: {
-    getUserState: (state) => state
+    getUserState: (state) => state,
+    getUserinfo: (state) => state.user
   },
   extraReducers: (builder) => {
     builder //Получение данных пользователя
@@ -139,6 +133,5 @@ export const userSlice = createSlice({
   }
 });
 
-export const { getUserState } = userSlice.selectors;
-export const { resetError, loginOut } = userSlice.actions;
+export const { getUserState, getUserinfo } = userSlice.selectors;
 export const userReducer = userSlice.reducer;

@@ -1,5 +1,12 @@
 import '../../index.css';
 import styles from './app.module.css';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { OrderInfo, AppHeader, IngredientDetails, Modal } from '@components';
+import { ProtectedRoute } from '../protected-route/ProtectedRoute';
+import { useDispatch } from '../../services/store';
+import { useEffect } from 'react';
+import { getIngredients } from '../../services/actions/ingredientsActions';
+import { getUserData } from '../../services/actions/userActions';
 import {
   ConstructorPage,
   Feed,
@@ -11,13 +18,6 @@ import {
   ProfileOrders,
   NotFound404
 } from '@pages';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-import { OrderInfo, AppHeader, IngredientDetails, Modal } from '@components';
-import { ProtectedRoute } from '../protected-route/ProtectedRoute';
-import { useDispatch } from '../../services/store';
-import { useEffect } from 'react';
-import { getIngredients } from '../../services/actions/ingredientsActions';
-import { getUserData } from '../../services/actions/userActions';
 
 const App = () => {
   const location = useLocation();
@@ -97,7 +97,7 @@ const App = () => {
           }
         />
       </Routes>
-
+      {/*Модальные окна*/}
       {background && (
         <>
           <Routes>
