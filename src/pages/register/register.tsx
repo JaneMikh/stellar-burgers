@@ -16,6 +16,10 @@ export const Register: FC = () => {
   const { error } = useSelector(getUserState);
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    if (!email || !password || !userName) {
+      return;
+    }
     dispatch(registerUser({ email, password, name: userName }));
     navigate('/login');
   };

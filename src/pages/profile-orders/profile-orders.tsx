@@ -10,18 +10,19 @@ import { useEffect } from 'react';
 
 export const ProfileOrders: FC = () => {
   /** TODO: взять переменную из стора */
-  const orders: TOrder[] = useSelector(getUserState).userOrders;
-  const { request } = useSelector(getUserState);
+  //const orders: TOrder[] = useSelector(getUserState).userOrders;
+  const { request, userOrders } = useSelector(getUserState);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFeedsList());
+    // dispatch(getFeedsList());
     dispatch(getOrdersList());
-  }, []);
+    console.log(userOrders);
+  }, [dispatch]);
 
   if (request === true) {
     return <Preloader />;
   }
 
-  return <ProfileOrdersUI orders={orders} />;
+  return <ProfileOrdersUI orders={userOrders} />;
 };
