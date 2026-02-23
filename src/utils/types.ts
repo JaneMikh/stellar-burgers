@@ -1,3 +1,5 @@
+import { TRegisterData } from '@api';
+
 // Тип для ингредиента в каталоге
 export type TIngredient = {
   _id: string;
@@ -77,6 +79,8 @@ export type TOrderState = {
 export type RootState = {
   ingredients: TIngredientState;
   constructorBurger: TConstructorState;
+  feed: TFeedState;
+  user: TUserState;
 };
 
 // Тип для состояния ленты заказов
@@ -86,4 +90,17 @@ export type TFeedState = {
   totalToday: number;
   isLoading: boolean;
   error: string | null;
+};
+
+// Тип для состояния пользователя
+export type TUserState = {
+  user: TUser | null;
+  userOrders: TOrder[];
+  responseData: TUser | null;
+  request: boolean;
+  error: string | null;
+  registerData: TRegisterData | null;
+  loginRequest: boolean;
+  isAuthChecked: boolean;
+  isAuthenticated: boolean;
 };

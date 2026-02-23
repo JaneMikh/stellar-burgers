@@ -7,18 +7,17 @@ import { TIngredient } from '@utils-types';
 import { useNavigate } from 'react-router-dom';
 import { getItemsSelector } from '../../services/slices/ingredients-slice';
 import { useParams } from 'react-router-dom';
+import { getItemsState } from '../../services/slices/ingredients-slice';
 
 export const IngredientDetails: FC = () => {
   /** TODO: взять переменную из стора */
   const ingredientData = useSelector(getItemsSelector);
+  const { error } = useSelector(getItemsState);
   const { id } = useParams<{ id: string }>();
   const [ingredient, setIngredient] = useState<TIngredient | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoading(true);
-
     if (id && ingredientData.length > 0) {
       const findItem = ingredientData.find((item) => item._id === id);
       if (findItem) {
@@ -27,15 +26,14 @@ export const IngredientDetails: FC = () => {
         navigate('/404');
       }
     }
-    setIsLoading(false);
   }, [id, navigate, ingredientData]);
 
-  if (isLoading) {
+  if (!ingredient) {
     return <Preloader />;
   }
 
-  if (!ingredient) {
-    return <div>Ингредиент не найден</div>;
+  if (error) {
+    return <div>Ошибка: {error}</div>;
   }
 
   return <IngredientDetailsUI ingredientData={ingredient} />;

@@ -8,13 +8,15 @@ import { ingredientReducer } from './slices/ingredients-slice';
 import { constructorReducer } from './slices/constructor-slice';
 import { orderReducer } from './slices/order-slice';
 import { feedReducer } from './slices/feed-slice';
+import { userReducer } from './slices/user-slice';
 
 //Корневой редюсер
 const rootReducer = combineReducers({
   ingredients: ingredientReducer,
   constructorBurger: constructorReducer,
   order: orderReducer,
-  feed: feedReducer
+  feed: feedReducer,
+  user: userReducer
 });
 
 //Создание хранинлища

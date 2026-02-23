@@ -17,12 +17,12 @@ export const FeedInfo: FC = () => {
 
   const orders: TOrder[] = useSelector(getOrderInfo);
   const { total, totalToday } = useSelector(getFeedInfo);
+
   const feed = { total, totalToday };
 
   const readyOrders = getOrders(orders, 'done');
-
   const pendingOrders = getOrders(orders, 'pending');
-  console.log(pendingOrders);
+
   return (
     <FeedInfoUI
       readyOrders={readyOrders}

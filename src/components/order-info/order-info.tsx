@@ -20,8 +20,8 @@ export const OrderInfo: FC = () => {
     updatedAt: 'string',
     number: 0
   };
-
   const ingredients: TIngredient[] = [];*/
+
   const dispatch = useDispatch();
   const { request, getOrderResponse } = useSelector(getOrderState);
   const number = Number(useParams().number);

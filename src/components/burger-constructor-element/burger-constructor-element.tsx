@@ -26,7 +26,6 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
 
     const handleClose = () => {
       dispatch(removeItem(ingredient.id));
-      console.log(ingredient);
     };
 
     return (

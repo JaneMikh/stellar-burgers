@@ -10,6 +10,8 @@ import {
   setRequest
 } from '../../services/slices/constructor-slice';
 import { getOrder } from '../../services/actions/constructorBurgerActions';
+import { getUserState } from '../../services/slices/user-slice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -27,7 +29,8 @@ export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(constructorItemsSelector);
   const orderRequest = useSelector(constructorRequestSelector);
   const orderModalData = useSelector(constructorModalDataSelector);
-
+  const isAuthenticated = useSelector(getUserState).isAuthenticated;
+  const navigate = useNavigate();
   // Создаем массив из id нгредиентов
   let arr: string[] = [];
   const ingredientsList: string[] | void = constructorItems.ingredients.map(
@@ -41,10 +44,14 @@ export const BurgerConstructor: FC = () => {
   }
 
   const onOrderClick = () => {
-    if (constructorItems.bun) {
+    if (constructorItems.bun && isAuthenticated) {
       dispatch(setRequest(true));
       dispatch(getOrder(arr));
-    } else if (!constructorItems.bun) return;
+    } else if (!constructorItems.bun && isAuthenticated) {
+      return;
+    } else if (!isAuthenticated) {
+      navigate('/login');
+    }
   };
 
   const closeOrderModal = () => {
