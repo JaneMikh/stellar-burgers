@@ -9,15 +9,22 @@ import { useSelector } from '../../services/store';
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState<Error | null>(null);
   const dispatch = useDispatch();
-  const { isAuthenticated, error } = useSelector(getUserState);
+  const { isAuthenticated } = useSelector(getUserState);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-
+    setError(null);
     if (password && email) {
-      dispatch(loginUser({ email, password }));
+      dispatch(loginUser({ email, password }))
+        .unwrap()
+        .then(() => {
+          if (isAuthenticated) {
+            return <Navigate to='/' />;
+          }
+        })
+        .catch((err) => setError(err));
     }
 
     if (!email || !password) {
@@ -25,13 +32,9 @@ export const Login: FC = () => {
     }
   };
 
-  if (isAuthenticated) {
-    return <Navigate to='/' />;
-  }
-
   return (
     <LoginUI
-      errorText={error || ''}
+      errorText={error?.message}
       email={email}
       setEmail={setEmail}
       password={password}

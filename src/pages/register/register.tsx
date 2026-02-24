@@ -10,24 +10,32 @@ export const Register: FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState<Error | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error } = useSelector(getUserState);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-
+    setError(null);
     if (!email || !password || !userName) {
       return;
     }
-    dispatch(registerUser({ email, password, name: userName }));
-    navigate('/login');
+    dispatch(registerUser({ email, password, name: userName }))
+      .unwrap()
+      .then((data) => {
+        if (data.success) {
+          console.log('Данные пользователя:', data);
+          navigate('/', { replace: true });
+        } else {
+          navigate('/register');
+        }
+      })
+      .catch((err) => setError(err));
   };
 
   return (
     <RegisterUI
-      errorText={error || ''}
+      errorText={error?.message}
       email={email}
       userName={userName}
       password={password}

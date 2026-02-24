@@ -26,7 +26,11 @@ const initialState: TUserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthChecked: (state, action: PayloadAction<boolean>) => {
+      state.isAuthChecked = action.payload;
+    }
+  },
   selectors: {
     getUserState: (state) => state,
     getUserinfo: (state) => state.user
@@ -77,13 +81,13 @@ export const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.error = null;
         state.request = true;
-        state.isAuthChecked = true;
+        state.isAuthChecked = false;
         state.isAuthenticated = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.error = action.error.message as string;
         state.request = false;
-        state.isAuthChecked = false;
+        state.isAuthChecked = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.error = null;
@@ -91,7 +95,7 @@ export const userSlice = createSlice({
         state.responseData = action.payload.user;
         state.user = action.payload.user;
         state.isAuthenticated = true;
-        state.isAuthChecked = false;
+        state.isAuthChecked = true;
       }) //Оправка не сервер данных: почта и пароль
       .addCase(loginUser.pending, (state) => {
         state.error = null;
@@ -133,5 +137,6 @@ export const userSlice = createSlice({
   }
 });
 
+export const { setAuthChecked } = userSlice.actions;
 export const { getUserState, getUserinfo } = userSlice.selectors;
 export const userReducer = userSlice.reducer;
