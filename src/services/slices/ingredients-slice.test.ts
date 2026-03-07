@@ -1,9 +1,9 @@
 import { expect, describe, test } from '@jest/globals';
-import { initialState } from './ingredients-slice';
-import { ingredientReducer } from './ingredients-slice';
+import { ingredientReducer, initialState } from './ingredients-slice';
 import { getIngredients } from '../actions/ingredientsActions';
+import { TIngredient } from '../../utils/types';
 
-const mockIngredients = [
+const mockIngredients: TIngredient[] = [
   {
     _id: '643d69a5c3f7b9001cfa093c',
     name: 'Краторная булка N-200i',

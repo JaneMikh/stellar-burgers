@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TOrderState } from '@utils-types';
 import { getOrderNumber } from '../actions/orderActions';
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orders: [],
   request: false,
   responseOrder: null,

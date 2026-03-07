@@ -3,15 +3,13 @@ import {
   constructorReducer,
   addItem,
   removeItem,
-  resetConstructor,
-  resetOrderModal,
   moveItemDown,
   moveItemUp,
-  setRequest,
   initialState
 } from "./constructor-slice";
+import { TIngredient } from '../../utils/types';
 
-const mockFirstBun = {
+const mockFirstBun: TIngredient = {
   _id: '643d69a5c3f7b9001cfa093c',
   name: 'Краторная булка N-200i',
   type: 'bun',
@@ -25,7 +23,7 @@ const mockFirstBun = {
   image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
 };
 
-const mockSecondBun = {
+const mockSecondBun: TIngredient = {
   _id: '643d69a5c3f7b9001cfa093d',
   name: 'Флюоресцентная булка R2-D3',
   type: 'bun',
@@ -39,7 +37,7 @@ const mockSecondBun = {
   image_large: 'https://code.s3.yandex.net/react/code/bun-01-large.png'
 };
 
-const mockMain = {
+const mockMain: TIngredient = {
   _id: '643d69a5c3f7b9001cfa0947',
   name: 'Плоды Фалленианского дерева',
   type: 'main',
@@ -53,7 +51,7 @@ const mockMain = {
   image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png'
 };
 
-const mockSauce = {
+const mockSauce: TIngredient = {
   _id: '643d69a5c3f7b9001cfa0945',
   name: 'Соус с шипами Антарианского плоскоходца',
   type: 'sauce',
