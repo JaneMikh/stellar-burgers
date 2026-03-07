@@ -1,7 +1,6 @@
 import { expect, describe, test } from '@jest/globals';
 import { initialState, orderReducer } from './order-slice';
 import { getOrderNumber } from '../actions/orderActions';
-import { TOrderResponse } from '../../utils/burger-api';
 import { TOrder } from '../../utils/types';
 
 const mockOrder: TOrder = {
@@ -14,58 +13,39 @@ const mockOrder: TOrder = {
   ingredients: ['bun', 'main', 'sauce']
 };
 
-const mockOrderResponse: TOrderResponse = {
-  success: true,
-  orders: [mockOrder]
-};
-
 describe('OrderSlice reducer', () => {
-  test('Тестирование состояния заказа при pending', async () => {
+  test('Тестирование состояния при pending', async () => {
     const action = {
       type: getOrderNumber.pending.type,
-      payload: mockOrder.number
+      payload: null
     }
-    const state = orderReducer(
-     {
-      ...initialState,
-      request: true
-     },
-     action
-    );
+    const state = orderReducer(initialState, action);
 
     expect(state.request).toBe(true);
     expect(state.error).toBe(null);
     expect(state.getOrderResponse).toBe(null);
   });
 
-  test('Тестирование состояния заказа при fullfiled', async () => {
-    const action = getOrderNumber.fulfilled(mockOrderResponse, 'fullfilled', 100100);
-    const state = orderReducer(
-      {
-      ...initialState,
-      request: false,
-      error: null,
-      },
-      action
-    );
+  test('Тестирование состояния при fullfiled', async () => {
+   const action = {
+    type: getOrderNumber.fulfilled.type,
+    payload: { orders: [mockOrder] }
+   }
+    const state = orderReducer(initialState, action);
+
     expect(state.request).toBe(false);
     expect(state.error).toBe(null);
     expect(state.getOrderResponse).toEqual(mockOrder);
   });
 
-  test('Тестирование состояния заказа при rejected', async () => {
-    const action = getOrderNumber.rejected(new Error('error'), 'rejected', 100100);
-    const state = orderReducer(
-      {
-      ...initialState,
-      request: false,
-      error: null
-      },
-      action
-    );
+  test('Тестирование состояния при rejected', async () => {
+    const action = {
+      type: getOrderNumber.rejected.type,
+      error: { message: 'Ошибка при получении номера заказа'}
+    }
+    const state = orderReducer(initialState, action);
     expect(state.request).toBe(false);
-    expect(state.error).toBe('error');
+    expect(state.error).toBe(action.error.message);
     expect(state.getOrderResponse).toBe(null);
   });
 });
-
