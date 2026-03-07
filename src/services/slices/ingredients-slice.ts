@@ -4,7 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { TIngredientState } from '@utils-types';
 import { getIngredients } from '../actions/ingredientsActions';
 
-const initialState: TIngredientState = {
+export const initialState: TIngredientState = {
   ingredients: [],
   isIngredientsLoading: false,
   error: null
@@ -26,7 +26,8 @@ const ingredientSlice = createSlice({
       })
       .addCase(getIngredients.rejected, (state, action) => {
         state.isIngredientsLoading = false;
-        state.error = action.error.message as string;
+        //state.error = action.error.message as string;
+        state.error = action.payload as string;
       })
       .addCase(
         getIngredients.fulfilled,
