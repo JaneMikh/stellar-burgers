@@ -36,19 +36,22 @@ export const userSlice = createSlice({
     getUserinfo: (state) => state.user
   },
   extraReducers: (builder) => {
-    builder //Получение данных пользователя
+    builder //Получение данных пользователя  +++++++
       .addCase(getUserData.pending, (state) => {
         state.isAuthChecked = false;
+        state.error = null;
       })
-      .addCase(getUserData.rejected, (state) => {
+      .addCase(getUserData.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.isAuthChecked = true;
+        state.error = action.error.message as string;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isAuthChecked = true;
         state.isAuthenticated = true;
-      }) //Обновление данных пользователья (авторизованного)
+        state.error = null;
+      }) //Обновление данных пользователья (авторизованного) ++++
       .addCase(updateUserData.pending, (state) => {
         state.error = null;
         state.request = true;
@@ -61,7 +64,7 @@ export const userSlice = createSlice({
         state.error = null;
         state.request = false;
         state.responseData = action.payload.user;
-      }) //Получение данных о заказах
+      }) //Получение данных о заказах +++++
       .addCase(getOrdersList.pending, (state) => {
         state.request = true;
         state.error = null;
@@ -77,7 +80,7 @@ export const userSlice = createSlice({
           state.request = false;
           state.userOrders = action.payload;
         }
-      ) //Регистрация пользователя
+      ) //Регистрация пользователя +++
       .addCase(registerUser.pending, (state) => {
         state.error = null;
         state.request = true;
@@ -96,7 +99,7 @@ export const userSlice = createSlice({
         state.user = action.payload.user;
         state.isAuthenticated = true;
         state.isAuthChecked = true;
-      }) //Оправка не сервер данных: почта и пароль
+      }) //Оправка не сервер данных: почта и пароль +++
       .addCase(loginUser.pending, (state) => {
         state.error = null;
         state.isAuthenticated = false;
@@ -114,7 +117,7 @@ export const userSlice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload.user;
         state.loginRequest = false;
-      }) //Выход из личного кабинета
+      }) //Выход из личного кабинета +++++
       .addCase(logoutUser.pending, (state) => {
         state.error = null;
         state.request = true;
@@ -127,7 +130,7 @@ export const userSlice = createSlice({
         state.isAuthChecked = false;
         state.isAuthenticated = true;
       })
-      .addCase(logoutUser.fulfilled, (state, action) => {
+      .addCase(logoutUser.fulfilled, (state) => {
         state.error = null;
         state.user = null;
         state.request = false;

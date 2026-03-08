@@ -2,7 +2,6 @@ import { expect, describe, test } from '@jest/globals';
 import { feedReducer } from './feed-slice';
 import { getFeedsList } from '../actions/feedActions';
 import { TFeedState, TOrder } from '../../utils/types';
-import { TFeedsResponse } from '@api';
 
 describe('Feed-slice reducer', () => {
   const initialState: TFeedState = {
@@ -73,7 +72,6 @@ describe('Feed-slice reducer', () => {
       },
       action
     );
-
     expect(actualState).toMatchObject(expectedState);
   });
 
