@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.65% </span>
+                <span class="strong">98.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>130/145</span>
+                <span class='fraction'>143/145</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.65% </span>
+                <span class="strong">98.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>130/145</span>
+                <span class='fraction'>143/145</span>
             </div>
         
             
@@ -329,23 +329,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -366,7 +366,7 @@ import {
   loginUser
 } from '../actions/userActions';
 &nbsp;
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   userOrders: [],
   responseData: null,
@@ -454,7 +454,7 @@ export const userSlice = createSlice({
         state.user = action.payload.user;
         state.isAuthenticated = true;
         state.isAuthChecked = true;
-      }) //Оправка не сервер данных: почта и пароль
+      }) //Оправка не сервер данных: почта и пароль +++
       .addCase(loginUser.pending, (state) =&gt; {
         state.error = null;
         state.isAuthenticated = false;
@@ -472,25 +472,25 @@ export const userSlice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload.user;
         state.loginRequest = false;
-      }) //Выход из личного кабинета
+      }) //Выход из личного кабинета +++++
       .addCase(logoutUser.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.error = null;</span>
-<span class="cstat-no" title="statement not covered" >        state.request = true;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = true;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthenticated = false;</span>
+        state.error = null;
+        state.request = true;
+        state.isAuthChecked = true;
+        state.isAuthenticated = false;
       })
       .addCase(logoutUser.rejected, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.error = action.error.message as string;</span>
-<span class="cstat-no" title="statement not covered" >        state.request = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthenticated = true;</span>
+        state.error = action.error.message as string;
+        state.request = false;
+        state.isAuthChecked = false;
+        state.isAuthenticated = true;
       })
-      .addCase(logoutUser.fulfilled, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.error = null;</span>
-<span class="cstat-no" title="statement not covered" >        state.user = null;</span>
-<span class="cstat-no" title="statement not covered" >        state.request = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = true;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthenticated = false;</span>
+      .addCase(logoutUser.fulfilled, (state) =&gt; {
+        state.error = null;
+        state.user = null;
+        state.request = false;
+        state.isAuthChecked = true;
+        state.isAuthenticated = false;
       });
   }
 });
@@ -505,7 +505,7 @@ export const userReducer = userSlice.reducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-08T17:24:31.901Z
+                at 2026-03-08T20:20:13.284Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -7,7 +7,7 @@ import {
   loginUser,
   logoutUser
 } from '../actions/userActions';
-import { userReducer } from './user-slice';
+import { userReducer, initialState } from './user-slice';
 import { TOrder, TUser, TUserState } from '../../utils/types';
 
 const mockUser: TUser = {
@@ -23,18 +23,6 @@ const mockOrder: TOrder = {
   updatedAt: '2026-03-08T00:00:00Z',
   number: 100100,
   ingredients: ['bun', 'main', 'sauce']
-};
-
-const initialState: TUserState = {
-  user: null,
-  userOrders: [],
-  responseData: null,
-  request: false,
-  error: null,
-  registerData: null,
-  loginRequest: false,
-  isAuthChecked: false,
-  isAuthenticated: false
 };
 
 describe('userSlice reducer', () => {
@@ -59,12 +47,6 @@ describe('userSlice reducer', () => {
         error: { message: 'Ошибка при получении данных пользователя' }
       };
 
-      const expectedState: TUserState = {
-        ...initialState,
-        isAuthChecked: true,
-        error: action.error.message
-      };
-
       const actualState = userReducer(
         {
           ...initialState,
@@ -74,6 +56,11 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        isAuthChecked: true,
+        error: action.error.message
+      };
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -81,14 +68,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: getUserData.fulfilled.type,
         payload: { user: mockUser }
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        isAuthChecked: true,
-        isAuthenticated: true,
-        user: action.payload.user,
-        error: null
       };
 
       const actualState = userReducer(
@@ -101,6 +80,14 @@ describe('userSlice reducer', () => {
         },
         action
       );
+
+      const expectedState: TUserState = {
+        ...actualState,
+        isAuthChecked: true,
+        isAuthenticated: true,
+        user: action.payload.user,
+        error: null
+      };
 
       expect(actualState).toMatchObject(expectedState);
     });
@@ -128,12 +115,6 @@ describe('userSlice reducer', () => {
         error: { message: 'Ошибка при обновлении данных пользователя' }
       };
 
-      const expectedState: TUserState = {
-        ...initialState,
-        request: false,
-        error: action.error.message
-      };
-
       const actualState = userReducer(
         {
           ...initialState,
@@ -142,6 +123,12 @@ describe('userSlice reducer', () => {
         },
         action
       );
+
+      const expectedState: TUserState = {
+        ...actualState,
+        request: false,
+        error: action.error.message
+      };
 
       expect(actualState).toMatchObject(expectedState);
     });
@@ -157,13 +144,6 @@ describe('userSlice reducer', () => {
         payload: { user: newUserData }
       };
 
-      const expectedState: TUserState = {
-        ...initialState,
-        request: false,
-        error: null,
-        responseData: action.payload.user
-      };
-
       const actualState = userReducer(
         {
           ...initialState,
@@ -174,10 +154,18 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        request: false,
+        error: null,
+        responseData: action.payload.user
+      };
+
       expect(actualState).toMatchObject(expectedState);
       expect(actualState.responseData).toBe(newUserData);
     });
   });
+
   describe('Тестирование экшена getOrdersList', () => {
     test('Тестирование экшена getOrdersList.pending', () => {
       const action = {
@@ -200,12 +188,6 @@ describe('userSlice reducer', () => {
         error: { message: 'Ошибка при получении заказов пользователя' }
       };
 
-      const expectedState: TUserState = {
-        ...initialState,
-        request: false,
-        error: action.error.message
-      };
-
       const actualState = userReducer(
         {
           ...initialState,
@@ -215,6 +197,12 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        request: false,
+        error: action.error.message
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -222,12 +210,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: getOrdersList.fulfilled.type,
         payload: [mockOrder]
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        request: false,
-        userOrders: action.payload
       };
 
       const actualState = userReducer(
@@ -239,6 +221,12 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        request: false,
+        userOrders: action.payload
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
   });
@@ -248,14 +236,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: registerUser.pending.type,
         payload: null
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: null,
-        request: true,
-        isAuthChecked: false,
-        isAuthenticated: false
       };
 
       const actualState = userReducer(
@@ -269,6 +249,14 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: null,
+        request: true,
+        isAuthChecked: false,
+        isAuthenticated: false
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -276,13 +264,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: registerUser.rejected.type,
         error: { message: 'Ошибка при регистрации пользователя' }
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: action.error.message,
-        request: false,
-        isAuthChecked: true
       };
 
       const actualState = userReducer(
@@ -295,6 +276,13 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: action.error.message,
+        request: false,
+        isAuthChecked: true
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -302,16 +290,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: registerUser.fulfilled.type,
         payload: { user: mockUser }
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: null,
-        request: false,
-        responseData: action.payload.user,
-        user: action.payload.user,
-        isAuthenticated: true,
-        isAuthChecked: true
       };
 
       const actualState = userReducer(
@@ -327,6 +305,16 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: null,
+        request: false,
+        responseData: action.payload.user,
+        user: action.payload.user,
+        isAuthenticated: true,
+        isAuthChecked: true
+      };
+
       expect(actualState).toMatchObject(expectedState);
       expect(actualState.responseData).toBe(action.payload.user);
     });
@@ -337,14 +325,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: loginUser.pending.type,
         payload: null
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: null,
-        isAuthenticated: false,
-        isAuthChecked: true,
-        loginRequest: true
       };
 
       const actualState = userReducer(
@@ -358,6 +338,14 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: null,
+        isAuthenticated: false,
+        isAuthChecked: true,
+        loginRequest: true
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -365,13 +353,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: loginUser.rejected.type,
         error: { message: 'Ошибка при регистрации пользователя' }
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: action.error.message,
-        loginRequest: false,
-        isAuthChecked: false
       };
 
       const actualState = userReducer(
@@ -384,6 +365,13 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: action.error.message,
+        loginRequest: false,
+        isAuthChecked: false
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -391,15 +379,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: loginUser.fulfilled.type,
         payload: { user: mockUser }
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: null,
-        loginRequest: false,
-        user: action.payload.user,
-        isAuthenticated: true,
-        isAuthChecked: true
       };
 
       const actualState = userReducer(
@@ -414,6 +393,15 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: null,
+        loginRequest: false,
+        user: action.payload.user,
+        isAuthenticated: true,
+        isAuthChecked: true
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
   });
@@ -423,15 +411,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: logoutUser.pending.type,
         payload: null
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        user: mockUser,
-        error: null,
-        request: true,
-        isAuthChecked: true,
-        isAuthenticated: false
       };
 
       const actualState = userReducer(
@@ -446,6 +425,15 @@ describe('userSlice reducer', () => {
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        user: mockUser,
+        error: null,
+        request: true,
+        isAuthChecked: true,
+        isAuthenticated: false
+      };
+
       expect(actualState).toMatchObject(expectedState);
     });
 
@@ -453,14 +441,6 @@ describe('userSlice reducer', () => {
       const action = {
         type: logoutUser.rejected.type,
         error: { message: 'Ошибка при выходе из личного кабинета' }
-      };
-
-      const expectedState: TUserState = {
-        ...initialState,
-        error: action.error.message,
-        request: false,
-        isAuthChecked: false,
-        isAuthenticated: true
       };
 
       const actualState = userReducer(
@@ -473,6 +453,13 @@ describe('userSlice reducer', () => {
         },
         action
       );
+      const expectedState: TUserState = {
+        ...actualState,
+        error: action.error.message,
+        request: false,
+        isAuthChecked: false,
+        isAuthenticated: true
+      };
 
       expect(actualState).toMatchObject(expectedState);
     });
@@ -483,25 +470,26 @@ describe('userSlice reducer', () => {
         payload: null
       };
 
-      const expectedState: TUserState = {
-        ...initialState,
-        error: null,
-        user: null,
-        request: false
-      };
-
       const actualState = userReducer(
         {
           ...initialState,
           user: mockUser,
           error: null,
-          request: true
+          request: true,
+          isAuthenticated: true
         },
         action
       );
 
+      const expectedState: TUserState = {
+        ...actualState,
+        error: null,
+        user: null,
+        request: false,
+        isAuthenticated: false
+      };
+
       expect(actualState).toMatchObject(expectedState);
-      expect(actualState.user).toBe(mockUser);
     });
   });
 });

@@ -7,6 +7,7 @@ import {
   moveItemUp,
   initialState
 } from './constructor-slice';
+import { getOrder } from '../actions/constructorBurgerActions';
 import { TIngredient } from '../../utils/types';
 
 const mockFirstBun: TIngredient = {
@@ -216,6 +217,15 @@ describe('constructorSlice reducer', () => {
         initialConstructorState.constructorItems.ingredients;
 
       expect(currentResult).toEqual(expectedResult);
+    });
+  });
+
+  describe('Тестирование экшена getOrder', () => {
+    test('Тестирование экшена getOrder.pending', () => {
+      const action = {
+        type: getOrder.pending.type,
+        payload: null
+      };
     });
   });
 });

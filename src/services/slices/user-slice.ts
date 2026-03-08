@@ -11,7 +11,7 @@ import {
   loginUser
 } from '../actions/userActions';
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   userOrders: [],
   responseData: null,
