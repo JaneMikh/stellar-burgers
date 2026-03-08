@@ -33,14 +33,17 @@ const mockIngredients: TIngredient[] = [
 ];
 
 describe('IngredietsSlice reducer', () => {
-  test('Тестирование состояния загрузки при pending', async () => {
-    const action = { type: getIngredients.pending.type };
+  test('Тестирование состояния загрузки при pending', () => {
+    const action = {
+      type: getIngredients.pending.type,
+      payload: null
+    };
     const state = ingredientReducer(initialState, action);
     expect(state.isIngredientsLoading).toBe(true);
     expect(state.error).toBe(null);
   });
 
-  test('Тестирование состояния загрузки при rejected', async () => {
+  test('Тестирование состояния загрузки при rejected', () => {
     const errorMessage = 'Ошибка загрузки';
     const action = {
       type: getIngredients.rejected.type,
@@ -57,7 +60,7 @@ describe('IngredietsSlice reducer', () => {
     expect(state.error).toBe(errorMessage);
   });
 
-  test('Тестирование состояния загрузки при fullfiled', async () => {
+  test('Тестирование состояния загрузки при fullfiled', () => {
     const action = {
       type: getIngredients.fulfilled.type,
       payload: mockIngredients

@@ -14,7 +14,7 @@ const mockOrder: TOrder = {
 };
 
 describe('OrderSlice reducer', () => {
-  test('Тестирование состояния при pending', async () => {
+  test('Тестирование состояния при pending', () => {
     const action = {
       type: getOrderNumber.pending.type,
       payload: null
@@ -26,7 +26,7 @@ describe('OrderSlice reducer', () => {
     expect(state.getOrderResponse).toBe(null);
   });
 
-  test('Тестирование состояния при fullfiled', async () => {
+  test('Тестирование состояния при fullfiled', () => {
     const action = {
       type: getOrderNumber.fulfilled.type,
       payload: { orders: [mockOrder] }
@@ -38,7 +38,7 @@ describe('OrderSlice reducer', () => {
     expect(state.getOrderResponse).toEqual(mockOrder);
   });
 
-  test('Тестирование состояния при rejected', async () => {
+  test('Тестирование состояния при rejected', () => {
     const action = {
       type: getOrderNumber.rejected.type,
       error: { message: 'Ошибка при получении номера заказа' }

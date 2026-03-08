@@ -8,7 +8,12 @@ import {
   initialState
 } from './constructor-slice';
 import { getOrder } from '../actions/constructorBurgerActions';
-import { TIngredient } from '../../utils/types';
+import {
+  TConstructorState,
+  TIngredient,
+  TOrder,
+  TOrderState
+} from '../../utils/types';
 
 const mockFirstBun: TIngredient = {
   _id: '643d69a5c3f7b9001cfa093c',
@@ -64,6 +69,16 @@ const mockSauce: TIngredient = {
   image: 'https://code.s3.yandex.net/react/code/sauce-01.png',
   image_mobile: 'https://code.s3.yandex.net/react/code/sauce-01-mobile.png',
   image_large: 'https://code.s3.yandex.net/react/code/sauce-01-large.png'
+};
+
+const mockOrder: TOrder = {
+  _id: '111',
+  status: 'done',
+  name: 'Tasty burger',
+  createdAt: '2026-03-07T00:00:00Z',
+  updatedAt: '2026-03-07T00:00:00Z',
+  number: 100100,
+  ingredients: ['bun', 'main', 'sauce']
 };
 
 describe('constructorSlice reducer', () => {
@@ -226,6 +241,78 @@ describe('constructorSlice reducer', () => {
         type: getOrder.pending.type,
         payload: null
       };
+
+      const newConstructorState = constructorReducer(
+        {
+          ...initialState,
+          isLoading: false,
+          orderRequest: false,
+          error: null
+        },
+        action
+      );
+
+      expect(newConstructorState).toEqual({
+        ...initialState,
+        isLoading: true,
+        orderRequest: true,
+        error: null
+      });
     });
+
+    test('Тестирование экшена getOrder.rejected', () => {
+      const action = {
+        type: getOrder.rejected.type,
+        error: { message: 'Ошибка при получении данных о заказе' }
+      };
+
+      const expectedConstructorState: TConstructorState = {
+        ...initialState,
+        isLoading: false,
+        orderRequest: false,
+        error: action.error.message
+      };
+
+      const actualConstructorState = constructorReducer(
+        {
+          ...initialState,
+          isLoading: true,
+          orderRequest: true,
+          error: null
+        },
+        action
+      );
+
+      expect(actualConstructorState).toMatchObject(expectedConstructorState)
+    });
+
+    test('Тестирование экшена getOrder.fulfilled', () => {
+      const action = {
+        type: getOrder.fulfilled.type,
+        payload: { order: mockOrder }
+      };
+
+      const expectedConstructorState: TConstructorState = {
+        ...initialState,
+        isLoading: false,
+        orderRequest: false,
+        error: null,
+        orderModalData: action.payload.order
+      };
+
+      const actualConstructorState = constructorReducer(
+        {
+          ...initialState,
+          isLoading: true,
+          orderRequest: true,
+          error: null,
+          orderModalData: null
+        },
+        action
+      );
+
+      expect(actualConstructorState).toMatchObject(expectedConstructorState)
+    });
+
   });
 });
