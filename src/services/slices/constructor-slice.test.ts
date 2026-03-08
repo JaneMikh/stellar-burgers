@@ -6,7 +6,7 @@ import {
   moveItemDown,
   moveItemUp,
   initialState
-} from "./constructor-slice";
+} from './constructor-slice';
 import { TIngredient } from '../../utils/types';
 
 const mockFirstBun: TIngredient = {
@@ -67,7 +67,6 @@ const mockSauce: TIngredient = {
 
 describe('constructorSlice reducer', () => {
   describe('Тестирование addItem', () => {
-
     const expectedIngredientsList = {
       ...initialState,
       constrictorItems: {
@@ -77,14 +76,15 @@ describe('constructorSlice reducer', () => {
     };
 
     test('Тест на добавление ингредиента в конструктор', () => {
-      
       const newConstructorState = constructorReducer(
         initialState,
         addItem(mockMain)
       );
 
-      const currentIngredient = newConstructorState.constructorItems.ingredients[0];
-      const expectedIngredient = expectedIngredientsList.constrictorItems.ingredients[0];
+      const currentIngredient =
+        newConstructorState.constructorItems.ingredients[0];
+      const expectedIngredient =
+        expectedIngredientsList.constrictorItems.ingredients[0];
 
       expect(currentIngredient).toEqual({
         ...expectedIngredient,
@@ -103,7 +103,7 @@ describe('constructorSlice reducer', () => {
       expect(currentBun).toEqual({
         ...expectedBun,
         id: expect.any(String)
-      })
+      });
     });
 
     test('Тест на замену булок в конструкторе после добавления', () => {
@@ -137,14 +137,14 @@ describe('constructorSlice reducer', () => {
       });
     });
   });
-  
+
   describe('Удаление ингредиента из конструктора', () => {
     test('Тест на удаление ингредиента', () => {
       const currentConstructorState = {
         ...initialState,
         constructorItems: {
           bun: null,
-          ingredients: [{...mockMain, id: '1'}]
+          ingredients: [{ ...mockMain, id: '1' }]
         }
       };
 
@@ -162,7 +162,8 @@ describe('constructorSlice reducer', () => {
       );
 
       const currentResult = newConstructorSate.constructorItems.ingredients;
-      const expectedResult = expectedConstructorState.constructorItems.ingredients;
+      const expectedResult =
+        expectedConstructorState.constructorItems.ingredients;
 
       expect(currentResult).toEqual(expectedResult);
     });
@@ -172,10 +173,10 @@ describe('constructorSlice reducer', () => {
     const initialConstructorState = {
       ...initialState,
       constructorItems: {
-        bun: {...mockFirstBun, id: '1'},
+        bun: { ...mockFirstBun, id: '1' },
         ingredients: [
-          {...mockSauce, id: '2'}, 
-          {...mockMain, id: '3'}
+          { ...mockSauce, id: '2' },
+          { ...mockMain, id: '3' }
         ]
       }
     };
@@ -183,14 +184,14 @@ describe('constructorSlice reducer', () => {
     const expectedConstructorState = {
       ...initialConstructorState,
       constructorItems: {
-        bun: {...mockFirstBun, id: '1'},
+        bun: { ...mockFirstBun, id: '1' },
         ingredients: [
-          {...mockMain, id: '3'},
-          {...mockSauce, id: '2'}
+          { ...mockMain, id: '3' },
+          { ...mockSauce, id: '2' }
         ]
       }
     };
-  
+
     test('Тест на перемещение ингредиента вверх', () => {
       const newConstructorState = constructorReducer(
         initialConstructorState,
@@ -198,7 +199,8 @@ describe('constructorSlice reducer', () => {
       );
 
       const currentResult = newConstructorState.constructorItems.ingredients;
-      const expectedResult = expectedConstructorState.constructorItems.ingredients;
+      const expectedResult =
+        expectedConstructorState.constructorItems.ingredients;
 
       expect(currentResult).toEqual(expectedResult);
     });
@@ -210,7 +212,8 @@ describe('constructorSlice reducer', () => {
       );
 
       const currentResult = newConstructorSate.constructorItems.ingredients;
-      const expectedResult = initialConstructorState.constructorItems.ingredients;
+      const expectedResult =
+        initialConstructorState.constructorItems.ingredients;
 
       expect(currentResult).toEqual(expectedResult);
     });

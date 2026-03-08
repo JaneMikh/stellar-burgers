@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772922296182" clover="3.2.0">
-  <project timestamp="1772922296182" name="All files">
-    <metrics statements="510" coveredstatements="297" conditionals="19" coveredconditionals="19" methods="35" coveredmethods="8" elements="564" coveredelements="324" complexity="0" loc="510" ncloc="510" packages="3" files="8" classes="8"/>
+<coverage generated="1772975093541" clover="3.2.0">
+  <project timestamp="1772975093541" name="All files">
+    <metrics statements="556" coveredstatements="343" conditionals="23" coveredconditionals="23" methods="38" coveredmethods="9" elements="617" coveredelements="375" complexity="0" loc="556" ncloc="556" packages="3" files="10" classes="10"/>
     <package name="services.actions">
-      <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="constructorBurgerActions.ts" path="E:\YandexPracticum\2025\stellar-burgers\src\services\actions\constructorBurgerActions.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+      <file name="feedActions.ts" path="E:\YandexPracticum\2025\stellar-burgers\src\services\actions\feedActions.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -33,7 +40,7 @@
       </file>
     </package>
     <package name="services.slices">
-      <metrics statements="210" coveredstatements="192" conditionals="19" coveredconditionals="19" methods="17" coveredmethods="8"/>
+      <metrics statements="252" coveredstatements="234" conditionals="23" coveredconditionals="23" methods="20" coveredmethods="9"/>
       <file name="constructor-slice.ts" path="E:\YandexPracticum\2025\stellar-burgers\src\services\slices\constructor-slice.ts">
         <metrics statements="127" coveredstatements="109" conditionals="11" coveredconditionals="11" methods="12" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
@@ -163,6 +170,51 @@
         <line num="125" count="1" type="stmt"/>
         <line num="126" count="1" type="stmt"/>
         <line num="127" count="1" type="stmt"/>
+      </file>
+      <file name="feed-slice.ts" path="E:\YandexPracticum\2025\stellar-burgers\src\services\slices\feed-slice.ts">
+        <metrics statements="42" coveredstatements="42" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
       </file>
       <file name="ingredients-slice.ts" path="E:\YandexPracticum\2025\stellar-burgers\src\services\slices\ingredients-slice.ts">
         <metrics statements="44" coveredstatements="44" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="1"/>

@@ -18,7 +18,7 @@ describe('OrderSlice reducer', () => {
     const action = {
       type: getOrderNumber.pending.type,
       payload: null
-    }
+    };
     const state = orderReducer(initialState, action);
 
     expect(state.request).toBe(true);
@@ -27,10 +27,10 @@ describe('OrderSlice reducer', () => {
   });
 
   test('Тестирование состояния при fullfiled', async () => {
-   const action = {
-    type: getOrderNumber.fulfilled.type,
-    payload: { orders: [mockOrder] }
-   }
+    const action = {
+      type: getOrderNumber.fulfilled.type,
+      payload: { orders: [mockOrder] }
+    };
     const state = orderReducer(initialState, action);
 
     expect(state.request).toBe(false);
@@ -41,8 +41,8 @@ describe('OrderSlice reducer', () => {
   test('Тестирование состояния при rejected', async () => {
     const action = {
       type: getOrderNumber.rejected.type,
-      error: { message: 'Ошибка при получении номера заказа'}
-    }
+      error: { message: 'Ошибка при получении номера заказа' }
+    };
     const state = orderReducer(initialState, action);
     expect(state.request).toBe(false);
     expect(state.error).toBe(action.error.message);
