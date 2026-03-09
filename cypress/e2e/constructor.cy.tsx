@@ -86,7 +86,7 @@ describe('Тестирование модальных окон', function () {
   });
 });
 
-describe('Тестирование создания заказа', function () {
+describe('Тестирование оформления заказа', function () {
   this.beforeEach(() => {
     window.localStorage.setItem('refreshToken',JSON.stringify('testRefreshToken'));
     cy.getAllLocalStorage().should('be.not.empty');
