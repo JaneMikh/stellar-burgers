@@ -26,7 +26,6 @@ const ingredientSlice = createSlice({
       })
       .addCase(getIngredients.rejected, (state, action) => {
         state.isIngredientsLoading = false;
-        //state.error = action.error.message as string;
         state.error = action.payload as string;
       })
       .addCase(

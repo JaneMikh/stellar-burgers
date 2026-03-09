@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { TConstructorState } from '@utils-types';
 import { getOrder } from '../actions/constructorBurgerActions';
 
@@ -53,7 +53,6 @@ const constructorSlice = createSlice({
       state.orderRequest = action.payload;
     },
     moveItemDown: (state, action: PayloadAction<string>) => {
-      //const itemIndex = action.payload;
       const itemIndex = state.constructorItems.ingredients.findIndex(
         (item) => item.id === action.payload
       );
@@ -68,7 +67,6 @@ const constructorSlice = createSlice({
       }
     },
     moveItemUp: (state, action: PayloadAction<string>) => {
-      // const itemIndex = action.payload;
       const itemIndex = state.constructorItems.ingredients.findIndex(
         (item) => item.id === action.payload
       );
