@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { TConstructorState } from '@utils-types';
 import { getOrder } from '../actions/constructorBurgerActions';
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   constructorItems: {
     bun: null,
     ingredients: []
@@ -52,8 +52,10 @@ const constructorSlice = createSlice({
     setRequest: (state, action: PayloadAction<boolean>) => {
       state.orderRequest = action.payload;
     },
-    moveItemDown: (state, action: PayloadAction<number>) => {
-      const itemIndex = action.payload;
+    moveItemDown: (state, action: PayloadAction<string>) => {
+      const itemIndex = state.constructorItems.ingredients.findIndex(
+        (item) => item.id === action.payload
+      );
       if (itemIndex < state.constructorItems.ingredients.length - 1) {
         [
           state.constructorItems.ingredients[itemIndex],
@@ -64,8 +66,10 @@ const constructorSlice = createSlice({
         ];
       }
     },
-    moveItemUp: (state, action: PayloadAction<number>) => {
-      const itemIndex = action.payload;
+    moveItemUp: (state, action: PayloadAction<string>) => {
+      const itemIndex = state.constructorItems.ingredients.findIndex(
+        (item) => item.id === action.payload
+      );
       if (itemIndex > 0) {
         [
           state.constructorItems.ingredients[itemIndex],

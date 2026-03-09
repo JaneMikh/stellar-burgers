@@ -11,7 +11,7 @@ import { feedReducer } from './slices/feed-slice';
 import { userReducer } from './slices/user-slice';
 
 //Корневой редюсер
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientReducer,
   constructorBurger: constructorReducer,
   order: orderReducer,

@@ -8,7 +8,7 @@ import {
   registerUserApi,
   TLoginData,
   TRegisterData
-} from '@api';
+} from '../../utils/burger-api';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
 // Получить данные пользователя (name, email) +

@@ -11,7 +11,7 @@ import {
   loginUser
 } from '../actions/userActions';
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   userOrders: [],
   responseData: null,
@@ -39,15 +39,18 @@ export const userSlice = createSlice({
     builder //Получение данных пользователя
       .addCase(getUserData.pending, (state) => {
         state.isAuthChecked = false;
+        state.error = null;
       })
-      .addCase(getUserData.rejected, (state) => {
+      .addCase(getUserData.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.isAuthChecked = true;
+        state.error = action.error.message as string;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isAuthChecked = true;
         state.isAuthenticated = true;
+        state.error = null;
       }) //Обновление данных пользователья (авторизованного)
       .addCase(updateUserData.pending, (state) => {
         state.error = null;
@@ -127,7 +130,7 @@ export const userSlice = createSlice({
         state.isAuthChecked = false;
         state.isAuthenticated = true;
       })
-      .addCase(logoutUser.fulfilled, (state, action) => {
+      .addCase(logoutUser.fulfilled, (state) => {
         state.error = null;
         state.user = null;
         state.request = false;
