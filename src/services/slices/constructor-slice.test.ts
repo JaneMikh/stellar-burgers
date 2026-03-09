@@ -8,12 +8,7 @@ import {
   initialState
 } from './constructor-slice';
 import { getOrder } from '../actions/constructorBurgerActions';
-import {
-  TConstructorState,
-  TIngredient,
-  TOrder,
-  TOrderState
-} from '../../utils/types';
+import { TConstructorState, TIngredient, TOrder } from '../../utils/types';
 
 const mockFirstBun: TIngredient = {
   _id: '643d69a5c3f7b9001cfa093c',
@@ -283,7 +278,7 @@ describe('constructorSlice reducer', () => {
         action
       );
 
-      expect(actualConstructorState).toMatchObject(expectedConstructorState)
+      expect(actualConstructorState).toMatchObject(expectedConstructorState);
     });
 
     test('Тестирование экшена getOrder.fulfilled', () => {
@@ -311,8 +306,7 @@ describe('constructorSlice reducer', () => {
         action
       );
 
-      expect(actualConstructorState).toMatchObject(expectedConstructorState)
+      expect(actualConstructorState).toMatchObject(expectedConstructorState);
     });
-
   });
 });
